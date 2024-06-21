@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Log In</title>
+</head>
+<body>
+    <h2>Inicio de sesion</h2>
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form method="post" action="http://127.0.0.1:8000/preview/log-in/">
+        {% csrf_token %}
+        <label for="email">Mail:</label><br>
+        <input type="text" id="email" name="email" required><br><br>
+        <label for="password">Contraseña:</label><br>
+        <input type="password" id="password" name="password" required><br><br>
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>

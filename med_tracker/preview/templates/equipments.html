@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listado de equipos</title>
+</head>
+<body>
+    <h1>Listado de equipos</h1>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Numero de serie</th>
+            <th>Ano de frabricacion</th>
+            <th>Ano de adquisicion</th>
+            <th>Area</th>
+            <th>Ubicacion</th>
+            <th>Estado</th>
+        </tr>
+        {% for equipment in equipments %}
+            <tr>
+                <td><a href="{% url 'home' %}?model={{ equipment.model }}">{{ equipment.name }}</a></td>
+                <td>{{ equipment.brand }}</td>
+                <td>{{ equipment.model }}</td>
+                <td>{{ equipment.serial_number }}</td>
+                <td>{{ equipment.fabrication_year }}</td>
+                <td>{{ equipment.adquisition_year }}</td>
+                <td>{{ equipment.get_area_display }}</td>
+                <td>{{ equipment.get_location_display }}</td>
+                <td>{{ equipment.get_status_display }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

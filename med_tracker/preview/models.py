@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.hashers import make_password, check_password
 
 field = [
         ('uci', 'UCI'),
@@ -29,10 +30,14 @@ class User(models.Model):
     is_active = models.BooleanField(default=True)
     def __str__(self):
         return (self.first_name+self.last_name)
+    def set_password(self, raw_password):
+        self.password = make_password(raw_password)
+        self.save()
+    def check_password(self, raw_password):
+        return check_password(raw_password, self.password)
     def save(self, *args, **kwargs):
         # Custom save method if needed
         super().save(*args, **kwargs)
-
 
 class Equipment(models.Model):
     status = [
@@ -50,7 +55,8 @@ class Equipment(models.Model):
     area = models.CharField(max_length=20, choices=field, default='gral')
     location = models.CharField(max_length=20, choices=field, default='gral')
     status = models.CharField(max_length=20,choices= status, default='op')
-
+    def __str__(self):
+        return self.serial_number
 
 class Report(models.Model):
     status = [
@@ -66,3 +72,5 @@ class Report(models.Model):
     technician = models.ManyToManyField(User)
     status = models.CharField(max_length=20,choices= status, default='op')
     commentary = models.CharField(max_length=500)
+    def __str__(self):
+        return self.report_id

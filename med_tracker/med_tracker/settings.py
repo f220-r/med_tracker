@@ -81,6 +81,11 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = [
+    'preview.backends.authentication.CustomBackend',
+    'django.contrib.auth.backends.ModelBackend',  # Optionally, include the default backend if you need it
+]
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
